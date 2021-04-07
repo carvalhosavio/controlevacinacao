@@ -35,7 +35,7 @@ public class VacinacaoController {
     @PostMapping
     public ResponseEntity<VacinacaoRespostaDTO> aplicacaoVacina(@RequestBody @Valid VacinacaoDTO dto){
         Optional<Usuario> usuario = usuarioService.findByEmail(dto.getEmailUsuario());
-        if (usuario.isEmpty()){
+        if (!usuario.isPresent()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         Vacinacao vacinacao = vacinacaoService.cadastro(dto.transformaParaVacinacao(usuario.get()));
